@@ -1,0 +1,8 @@
+name: Fridges
+main: com.servegame.n1p.Fridges.Fridges
+version: 1.00
+commands:
+  fridges:
+    description: Enable or Disable Fridges
+    usage: |
+            /<command>
