@@ -1,0 +1,4 @@
+/bin/
+
+# PDT-specific
+*.classpath
