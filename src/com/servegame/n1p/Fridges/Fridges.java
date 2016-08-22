@@ -44,12 +44,12 @@ public class Fridges extends JavaPlugin {
 				if (enabled) {
 
 					enabled = false;
-					player.sendMessage(ChatColor.AQUA + "Fridges Has Been Disabled!");
+					player.sendMessage(ChatColor.AQUA + "Fridges has been disabled!");
 
 				} else {
 
 					enabled = true;
-					player.sendMessage(ChatColor.AQUA + "Fridges Has Been Enabled!");
+					player.sendMessage(ChatColor.AQUA + "Fridges has been enabled!");
 
 				}
 			}
