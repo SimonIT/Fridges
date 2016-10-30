@@ -1,0 +1,29 @@
+name: Fridges
+main: com.servegame.n1p.Fridges.Fridges
+version: 0.3
+depend:
+- Vault
+commands:
+  fridges:
+    description: reload the config file
+    usage: /fridges reload
+    permissions: fridges.reload
+permissions:
+  fridges.reload:
+    description: for /fridges reload
+    default: op
+  fridges.fridge.use:
+    description: be able to open fridges
+    default: op
+  fridges.fridge.break:
+    description: you need this to break fridges
+    default: op
+  fridges.anvil.repair:
+    description: for when you repair your tool
+    default: op
+  fridges.anvil.info:
+    description: to get the cost of the item you are holding
+    default: op
+  fridges.anvil.break:
+    description: you need this to break anvils
+    default: op

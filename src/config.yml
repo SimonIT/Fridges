@@ -1,0 +1,11 @@
+anvils:
+  enabled: true #if anvils can be used
+  price:
+    wood: 50 #base price for wood repair
+    diamond: 500 #base price for diamond
+    stone: 75 #price for stone
+    gold: 250 #price for gold
+    iron: 150 #price for iron
+fridges:
+  enabled: true #if fridges can be used
+  debug: false #if you want extra output to the console
