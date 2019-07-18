@@ -28,11 +28,11 @@ public class FridgesPlayerListener implements Listener {
     public final int goldDurability = 32;
     public final int ironDurability = 250;
 
-    public final Material[] woodMaterial = {Material.WOOD_AXE, Material.WOOD_PICKAXE, Material.WOOD_SPADE, Material.WOOD_HOE, Material.WOOD_SWORD, Material.FISHING_ROD, Material.CARROT_STICK, Material.BOW};
-    public final Material[] diamondMaterial = {Material.DIAMOND_AXE, Material.DIAMOND_PICKAXE, Material.DIAMOND_SPADE, Material.DIAMOND_HOE, Material.DIAMOND_SWORD};
-    public final Material[] stoneMaterial = {Material.STONE_AXE, Material.STONE_PICKAXE, Material.STONE_SPADE, Material.STONE_HOE, Material.STONE_SWORD};
-    public final Material[] goldMaterial = {Material.GOLD_AXE, Material.GOLD_PICKAXE, Material.GOLD_SPADE, Material.GOLD_HOE, Material.GOLD_SWORD};
-    public final Material[] ironMaterial = {Material.IRON_AXE, Material.IRON_PICKAXE, Material.IRON_SPADE, Material.IRON_HOE, Material.IRON_SWORD, Material.SHEARS, Material.FLINT_AND_STEEL};
+    public final Material[] woodMaterial = {Material.WOODEN_AXE, Material.WOODEN_PICKAXE, Material.WOODEN_SHOVEL, Material.WOODEN_HOE, Material.WOODEN_SWORD, Material.FISHING_ROD, Material.CARROT_ON_A_STICK, Material.BOW};
+    public final Material[] diamondMaterial = {Material.DIAMOND_AXE, Material.DIAMOND_PICKAXE, Material.DIAMOND_SHOVEL, Material.DIAMOND_HOE, Material.DIAMOND_SWORD};
+    public final Material[] stoneMaterial = {Material.STONE_AXE, Material.STONE_PICKAXE, Material.STONE_SHOVEL, Material.STONE_HOE, Material.STONE_SWORD};
+    public final Material[] goldMaterial = {Material.GOLDEN_AXE, Material.GOLDEN_PICKAXE, Material.GOLDEN_SHOVEL, Material.GOLDEN_HOE, Material.GOLDEN_SWORD};
+    public final Material[] ironMaterial = {Material.IRON_AXE, Material.IRON_PICKAXE, Material.IRON_SHOVEL, Material.IRON_HOE, Material.IRON_SWORD, Material.SHEARS, Material.FLINT_AND_STEEL};
 
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent event) {
@@ -67,7 +67,7 @@ public class FridgesPlayerListener implements Listener {
                                     event.setCancelled(true);
                                 }
                             }
-                        } else if (y1.getType() == Material.STONE_PLATE
+                        } else if (y1.getType() == Material.STONE_PRESSURE_PLATE
                                 && entityPlayer.hasPermission("fridges.anvil.repair")) {
 
                             Material item = event.getItem().getType();
@@ -130,7 +130,7 @@ public class FridgesPlayerListener implements Listener {
 
         if (event.getAction() == Action.LEFT_CLICK_BLOCK) {
             if (plugin.enabled) {
-                if (event.getClickedBlock() instanceof Block) {
+                if (event.getClickedBlock() != null) {
                     Block block = event.getClickedBlock();
 
                     if (block.getType() == Material.IRON_BLOCK) {
@@ -143,7 +143,7 @@ public class FridgesPlayerListener implements Listener {
 
                         Material item = event.getItem().getType();
 
-                        if (y1.getType() == Material.STONE_PLATE && entityPlayer.hasPermission("fridges.anvil.info")) {
+                        if (y1.getType() == Material.STONE_PRESSURE_PLATE && entityPlayer.hasPermission("fridges.anvil.info")) {
                             double price_per_durability = 0;
                             String material = null;
 
@@ -186,56 +186,54 @@ public class FridgesPlayerListener implements Listener {
     @EventHandler
     public void onPlayerBreak(BlockBreakEvent event) {
         if (plugin.enabled) {
-            if (event.getBlock() instanceof Block) {
-                Block block = event.getBlock();
+            Block block = event.getBlock();
 
-                if (block.getType() == Material.IRON_BLOCK) {
+            if (block.getType() == Material.IRON_BLOCK) {
 
-                    Player entityPlayer = event.getPlayer();
+                Player entityPlayer = event.getPlayer();
 
-                    Location loc = block.getLocation();
-                    loc.setY(loc.getY() - 1);
-                    Block y1 = loc.getWorld().getBlockAt(loc);
+                Location loc = block.getLocation();
+                loc.setY(loc.getY() - 1);
+                Block y1 = loc.getWorld().getBlockAt(loc);
 
-                    if (y1.getType() == Material.STONE_PLATE && !entityPlayer.hasPermission("fridges.anvil.break")) {
-                        event.setCancelled(true);
-                    } else if (y1.getType() == Material.CHEST) {
-
-                        Location loc2 = block.getLocation();
-                        loc2.setY(loc2.getY() + 1);
-                        Block y2 = loc2.getWorld().getBlockAt(loc2);
-
-                        if (y2.getType() == Material.IRON_BLOCK && !entityPlayer.hasPermission("fridges.fridge.break")) {
-                            event.setCancelled(true);
-                        }
-
-                    } else if (y1.getType() == Material.IRON_BLOCK) {
-
-                    }
-                } else if (block.getType() == Material.STONE_PLATE) {
-                    Player entityPlayer = event.getPlayer();
-
-                    Location loc = block.getLocation();
-                    loc.setY(loc.getY() + 1);
-                    Block y1 = loc.getWorld().getBlockAt(loc);
-
-                    if (y1.getType() == Material.IRON_BLOCK && !entityPlayer.hasPermission("fridges.anvil.break")) {
-                        event.setCancelled(true);
-                    }
-                } else if (block.getType() == Material.CHEST) {
-                    Player entityPlayer = event.getPlayer();
-
-                    Location loc = block.getLocation();
-                    loc.setY(loc.getY() + 1);
-                    Block y1 = loc.getWorld().getBlockAt(loc);
+                if (y1.getType() == Material.STONE_PRESSURE_PLATE && !entityPlayer.hasPermission("fridges.anvil.break")) {
+                    event.setCancelled(true);
+                } else if (y1.getType() == Material.CHEST) {
 
                     Location loc2 = block.getLocation();
-                    loc2.setY(loc2.getY() + 2);
+                    loc2.setY(loc2.getY() + 1);
                     Block y2 = loc2.getWorld().getBlockAt(loc2);
 
-                    if (y1.getType() == Material.IRON_BLOCK && y2.getType() == Material.IRON_BLOCK && !entityPlayer.hasPermission("fridges.fridge.break")) {
+                    if (y2.getType() == Material.IRON_BLOCK && !entityPlayer.hasPermission("fridges.fridge.break")) {
                         event.setCancelled(true);
                     }
+
+                } else if (y1.getType() == Material.IRON_BLOCK) {
+
+                }
+            } else if (block.getType() == Material.STONE_PRESSURE_PLATE) {
+                Player entityPlayer = event.getPlayer();
+
+                Location loc = block.getLocation();
+                loc.setY(loc.getY() + 1);
+                Block y1 = loc.getWorld().getBlockAt(loc);
+
+                if (y1.getType() == Material.IRON_BLOCK && !entityPlayer.hasPermission("fridges.anvil.break")) {
+                    event.setCancelled(true);
+                }
+            } else if (block.getType() == Material.CHEST) {
+                Player entityPlayer = event.getPlayer();
+
+                Location loc = block.getLocation();
+                loc.setY(loc.getY() + 1);
+                Block y1 = loc.getWorld().getBlockAt(loc);
+
+                Location loc2 = block.getLocation();
+                loc2.setY(loc2.getY() + 2);
+                Block y2 = loc2.getWorld().getBlockAt(loc2);
+
+                if (y1.getType() == Material.IRON_BLOCK && y2.getType() == Material.IRON_BLOCK && !entityPlayer.hasPermission("fridges.fridge.break")) {
+                    event.setCancelled(true);
                 }
             }
         }
