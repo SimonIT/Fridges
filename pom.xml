@@ -6,7 +6,7 @@
 
     <groupId>com.servegame.n1p</groupId>
     <artifactId>Fridges</artifactId>
-    <version>0.3</version>
+    <version>0.4</version>
     <packaging>jar</packaging>
 
     <properties>

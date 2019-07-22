@@ -1,6 +1,6 @@
 name: Fridges
 main: com.servegame.n1p.Fridges.Fridges
-version: 0.3
+version: 0.4
 depend:
 - Vault
 commands:
