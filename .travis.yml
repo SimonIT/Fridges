@@ -1,0 +1,23 @@
+language: java
+jdk:
+  - openjdk8
+
+before_deploy:
+  - mvn package
+
+deploy:
+  provider: releases
+  pre-release: true
+  skip_cleanup: true
+  api_key: ${GH_TOKEN}
+  file_glob: true
+  file: target/Fridges-*.jar
+  on:
+    repo: SimonIT/Fridges
+    tags: true
+    all_branches: true
+
+cache:
+  directories:
+    - .autoconf
+    - $HOME/.m2
